@@ -55,8 +55,8 @@ nlaws 200721: only running Cbc tests here b/c cannot get CPLEX and Xpress licenc
     #     end
     # end
     # if all_tests || "Cbc" in ARGS
-        @testset "test_with_cbc" begin
-            include("test_with_cbc.jl")
+        @testset "test_with_scip" begin
+            include("test_with_scip.jl")
         end
     # end
 end
