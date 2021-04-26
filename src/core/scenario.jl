@@ -36,6 +36,7 @@ struct Scenario
     electric_utility::ElectricUtility
     financial::Financial
     generator::Generator
+    configuration::Configuration
 end
 
 """
@@ -121,6 +122,12 @@ function Scenario(d::Dict)
         generator = Generator(; max_kw=0)
     end
 
+    if haskey(d, "Configuration")
+        configuration = Configuration(; dictkeys_tosymbols(d["Configuration"])...)
+    else
+        configuration = Configuration()
+    end
+
     return Scenario(
         site, 
         pvs, 
@@ -129,7 +136,8 @@ function Scenario(d::Dict)
         electric_load, 
         electric_utility, 
         financial,
-        generator
+        generator,
+        configuration
     )
 end
 

@@ -53,25 +53,25 @@ using REoptLite
 end
 
 
-@testset "Solar and Storage" begin
-    model2 =Model(optimizer_with_attributes(SCIP.Optimizer,"display/verblevel"=>0))
-    results2 = run_reopt(model2, "./scenarios/pv_storage.json")
+# @testset "Solar and Storage" begin
+#     model2 =Model(optimizer_with_attributes(SCIP.Optimizer,"display/verblevel"=>0))
+#     results2 = run_reopt(model2, "./scenarios/pv_storage.json")
 
-    @test results2["PV"]["size_kw"] ≈ 216.6667 atol=0.01
-    @test results2["Financial"]["lcc_us_dollars"] ≈ 1.23887e7 rtol=1e-5
-    @test results2["Storage"]["size_kw"] ≈ 55.9 atol=0.1
-    @test results2["Storage"]["size_kwh"] ≈ 78.9 atol=0.1
-end
+#     @test results2["PV"]["size_kw"] ≈ 216.6667 atol=0.01
+#     @test results2["Financial"]["lcc_us_dollars"] ≈ 1.23887e7 rtol=1e-5
+#     @test results2["Storage"]["size_kw"] ≈ 55.9 atol=0.1
+#     @test results2["Storage"]["size_kwh"] ≈ 78.9 atol=0.1
+# end
 
-@testset "Outage with Generator" begin
-    model = Model(optimizer_with_attributes(SCIP.Optimizer,"display/verblevel"=>0))
-    results = run_reopt(model, "./scenarios/generator.json")
-    @test results["Generator"]["size_kw"] ≈ 8.12 atol=0.01
-    @test (sum(results["Generator"]["year_one_to_load_series_kw"][i] for i in 1:9) + 
-           sum(results["Generator"]["year_one_to_load_series_kw"][i] for i in 13:8760)) == 0
-end
+# @testset "Outage with Generator" begin
+#     model = Model(optimizer_with_attributes(SCIP.Optimizer,"display/verblevel"=>0))
+#     results = run_reopt(model, "./scenarios/generator.json")
+#     @test results["Generator"]["size_kw"] ≈ 8.12 atol=0.01
+#     @test (sum(results["Generator"]["year_one_to_load_series_kw"][i] for i in 1:9) + 
+#            sum(results["Generator"]["year_one_to_load_series_kw"][i] for i in 13:8760)) == 0
+# end
 
-## much too slow with Cbc (killed after 8 hours)
+# ## much too slow with Cbc (killed after 8 hours)
 # @testset "Minimize Unserved Load" begin
 #     m = Model(optimizer_with_attributes(Cbc.Optimizer, "logLevel"=>0))
 #     results = run_reopt(m, "./scenarios/outage.json")

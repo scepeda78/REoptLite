@@ -71,6 +71,7 @@ struct REoptInputs
     min_resil_timesteps::Int
     mg_tech_sizes_equal_grid_sizes::Bool
     node::Int
+    configuration::Configuration
 end
 
 
@@ -158,7 +159,8 @@ function REoptInputs(s::Scenario)
         s.electric_utility,
         s.site.min_resil_timesteps,
         s.site.mg_tech_sizes_equal_grid_sizes,
-        s.site.node
+        s.site.node,
+        s.configuration
     )
 end
 
